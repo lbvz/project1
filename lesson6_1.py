@@ -1,6 +1,7 @@
 import gpiozero as zero
 import RPi.GPIO as GPIO
 from time import sleep
+from datetime import datetime
 import requests
 
 
@@ -17,7 +18,9 @@ if __name__ == "__main__":
             else:
                 print("光線暗") 
 
-            response = requests.get(f'https://lbvz-didactic-goggles-7gvw7qxg7xxhpx66-8000.preview.app.github.dev/raspberry?light={value}&temperature={mcp3008_ch6.value}')
+            datetimeStr = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+            response = requests.get(f'https://lbvz-didactic-goggles-7gvw7qxg7xxhpx66-8000.preview.app.github.dev/raspberry?time={datetimeStr}&light={value}&temperature={mcp3008_ch6.value}')
             
             if response.ok:
                 print("上傳資料成功")
